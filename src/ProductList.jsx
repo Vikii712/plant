@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from './CartSlice';
+import store from './store.js';
 
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
-
+    const cartItems = useSelector((state) => state.cart.items);
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -266,6 +267,9 @@ function ProductList({ onHomeClick }) {
         }));
     };
 
+    const calculateTotalQuantity = () => {
+        return cartItems ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0;
+    };
 
     return (
         <div>
@@ -291,7 +295,7 @@ function ProductList({ onHomeClick }) {
                 <div className="product-grid">
                     {plantsArray.map( (category, index) => (
                         <div key={index}>
-                            <div>
+                            <div className='cat-name'>
                                 <h1>{category.category}</h1>
                             </div>
                             <div className='product-list'>
@@ -312,9 +316,10 @@ function ProductList({ onHomeClick }) {
                                             {plant.cost}
                                         </div>
                                         <button className='product-button'
+                                            disabled={!!addedToCart[plant.name]}
                                             onClick={() => handleAddToCart(plant)}
                                         >
-                                            Add to Cart
+                                            {addedToCart[plant.name] ? "Added to cart" : "Add to cart"}
                                         </button>
                                     </div>
                                 ))}
