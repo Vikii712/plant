@@ -8,6 +8,7 @@ function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
+    const dispatch = useDispatch();
 
     const plantsArray = [
         {
@@ -258,10 +259,10 @@ function ProductList({ onHomeClick }) {
     };
 
     const handleAddToCart = (plant) => {
-        dispatch(addItem(product));
+        dispatch(addItem(plant));
 
         setAddedToCart((prev) => ({
-            ...prev, [product.name]:true
+            ...prev, [plant.name]:true
         }));
     };
 
@@ -308,7 +309,7 @@ function ProductList({ onHomeClick }) {
                                             {plant.description}
                                         </div>
                                         <div className='product-cost'>
-                                            ${plant.cost}
+                                            {plant.cost}
                                         </div>
                                         <button className='product-button'
                                             onClick={() => handleAddToCart(plant)}
