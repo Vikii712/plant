@@ -39,14 +39,14 @@
 .landing_content {
  margin-top: 430px;
   margin-left: 100px;
-  transform: translate(-50%, -50%);
+  transform: translate(0%, -50%);
   z-index: 1;
   text-align: center;
   /* background-color: red; */
-  width: 400px;
+  width: 30%;
   height: 400px;
   display: flex;
-  align-items: center;
+  align-items: right;
   flex-direction: column;
   justify-content: center;
   gap: 10px;
@@ -67,7 +67,7 @@
 }
 
 .divider {
-  width: 50px;
+  width: auto;
   height: 2px;
   background-color: #4caf50;
   margin: 10px 0;
